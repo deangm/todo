@@ -1,0 +1,54 @@
+html,body{
+    height:100%;
+    margin:0;
+    padding:0;
+}
+.new-note-input{
+    margin-top: 20px;
+    
+}
+.side-nav{
+    height:100%;
+    background-color: blue;
+    min-width: 190px;
+}
+.main{
+    height:100%;
+    display:flex;
+}
+.note-cont{
+    background-color: #dadfea;
+    height:100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+.header{
+    height: 60px;
+    width: 100%;
+    background-color:white;
+    text-align: center;
+}
+.note-cont{
+    .col-6{
+        flex:0 0 calc(80% - 60px);
+    }
+    .current-note{
+        height:auto;
+        background-color:white;
+        border-radius: 5px;
+        margin-top:80px;
+        overflow: scroll;
+        min-width: 350px;
+    }
+}
+
+.lists{
+    height: 100%;
+    margin-top: 20px;
+    justify-content: center;
+    display: flex;
+    width: 100%;
+    overflow: scroll;
+}
