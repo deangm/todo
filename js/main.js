@@ -3,29 +3,27 @@
 lists = [];
 
 class List {
-    constructor(name, id) {
-        this.id = id;
+    constructor(name) {
         this.name = name;
         this.items = [];
     }
     updateName(name) {
-        return this.name = name;
+        this.name = name;
     }
-    addItem(item) {
-        this.items.push(item);
+    removeItem(itemIndex) {
+        this.items.splice(itemIndex, 1);
     }
 }
 
 class Item {
-    constructor(name, id, list) {
-        this.id = id;
+    constructor(name) {
         this.name = name;
-        this.list = list;
         this.completed = false;
         this.important = false;
     }
     addToList(list) {
-        list.push(this);
+    
+        list.items.push(this);
     }
     update(name) {
         this.name = name;
@@ -39,93 +37,118 @@ class Item {
 }
 
 
-function findList(id){
-    let result = undefined;
-
-    for (let i = 0; i < lists.length; i++) {
-        if (lists[i].id == id) {
-            result = lists[i];
-        }
+$( "#listName" ).on( "keyup", function( event ) {
+    if(event.which == 13){
+        createList();
+        $("#listName").val("");
     }
-    return result
+  });
 
-}
+$("#itemName").on("keyup", function(event){
+    if(event.which == 13){
+        createItem();
+        $("#itemName").val("");
+    }
+})
+
 
 
 function createList() {
-    let name = document.getElementById("listName").value;
-    let id = Math.floor(Math.random() * 1000);
-    let list = new List(name, id);
+    let name = $("#listName").val();
+    let list = new List(name);
     lists.push(list);
-    showList();
+    $("#title").html(name);
+    printLists();
 }
 
-function showList(){
-    html = "<div>"
-    lists.forEach(function(list){
-        html += `<h2 onclick="showItems(this.id)" id="${list.id}">${list.name}</h2>`;
-    });
-    html += "</html>";
-    document.getElementById('lists').innerHTML = html;
+function deleteList(element){
     
-}
+    let target = $(element).parent();
+    let elements = $(".list");
 
-function createItem() {
-    let listId = getListId();
-    let name = document.getElementById("itemName").value;
-    let id = Math.floor(Math.random() * 1000);
-    let item = new Item(name, id, listId);
-    console.log(item);
-    let list = findList(listId);
-    list.items.push(item);
-    showItems(listId);
-    
-}
-
-function showItems(listId){
-    let list = findList(listId);
-    let title = document.getElementsByTagName('h1');
-    title[0].innerHTML = list.name;
-    title[0].id = listId;
-    html = "<div>"
-    list.items.forEach(function(item){
-        html += 
-        `<div id = "${item.id}">${item.name}</div>
-        <div onclick= "deleteItem(this)" id= "delete_${item.id}">X</div>`;
-    })
-    html += "</div>"
-    document.getElementById("items").innerHTML = html;
-}
-
-function getListId(){
-    
-    let list = document.getElementsByTagName('h1');
-    listId = list[0].id;
-    return listId;
-}
-
-function deleteList (){
-    listId = getListId();
-    let list = findList(listId);
-    console.log(listId);
-    for (item in lists){
-        if (lists[item] == list){
-            lists.splice(item, 1);
+    for(var i = 0; i<elements.length; i++){
+        if(elements[i] == target[0]){
+            lists.splice(i,1);
         }
     }
-    showList();
+
+    $("#title").html("");
+    $("#items").html("");
+    printLists();
+
+}
+
+function printLists() {
+    let html = '';
+    for (var i = 0; i < lists.length; i++) {
+        html += `<div class = list>
+                                <div onclick="selectList(this)">${lists[i].name}</div>
+                                <div onclick="deleteList(this)">X</div>
+                            </div>`
+    }
+
+    $("#lists").html(html);
+}
+
+function selectList(element){
+    
+    let html = $(element).html();
+    $("#title").html(html);
+}
+
+function findSelectedList(){
+    let name = $("#title").html();
+    let list;
+
+    for(var i = 0; i<lists.length; i++){
+        if(name == lists[i].name){
+            list = lists[i];
+        }
+    }
+
+    return list;
+}
+
+function createItem(){
+
+    let list = findSelectedList();
+    let itemName = $("#itemName").val();
+    let item = new Item(itemName);
+    item.addToList(list);
+    printItems();
+    
 }
 
 function deleteItem(element){
-    let itemId = element.id.split("_")[1];
-    console.log(itemId);
-    let listId = document.getElementsByTagName("h1")[0].id;
-    let list = findList(listId);
-    for (item in list.items){
-        if (itemId == list.items[item].id){
-            list.items.splice(item, 1);
+    let list = findSelectedList();
+    let target = $(element).parent();
+    let elements = $(".item");
+
+    for(var i = 0; i<elements.length; i++){
+        if(elements[i] == target[0]){
+            list.items.splice(i,1);
         }
     }
-    showItems(listId);
-
+    printItems();
 }
+
+
+
+function printItems(){
+    let list = findSelectedList();
+    let html = "";
+    for(var i = 0; i < list.items.length; i ++){
+        html += `<div class=item>
+                    <div>${list.items[i].name}</div>
+                    <input type="checkbox"/>
+                    <div>!</div>
+                    <div onclick="deleteItem(this)">X</div>
+                </div>`
+               
+                ;
+    }
+    $("#items").html(html);
+}
+
+
+

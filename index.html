@@ -18,7 +18,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="css/styles.css">
-    <script src="js/main.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="js/main.js" defer></script>
 </head>
 
 <body>
@@ -26,26 +28,26 @@
     <div class="container-fluid main">
         <div class="container row col-2 side-nav">
             <div class="new-note-input">
-                <input id="listName" type="text">
-                <button onclick = "createList()">Create New List</button>
+                <input id="listName" type="text" placeholder="Add New List...">
             </div>
-            <div id="lists"  class = "lists">
+            <div id="lists" class="lists">
 
             </div>
         </div>
         <div class="container col-10 note-cont">
-            <div class = "header container-fluid">
-                <h1>TITLE OF NOTE</h1>
-            </div>
             <div class="current-note col-6">
-                <button onclick= "deleteList()">Delete List</button>
-                <input id = "itemName">
-                <button onclick="createItem()">Create Item</button>
+                <h1 id="title">TITLE OF NOTE</h1>
+                <div class="item-input">
+                    <label>Add To Do:</label>
+                    <input id="itemName" placeholder="Enter Text...">
+                </div>
+               
+
+                <div id="items"></div>
+                
             </div>
-            <div id = "items"></div>
+            
         </div>
     </div>
-
 </body>
-
 </html>

@@ -9,7 +9,7 @@ html,body{
 }
 .side-nav{
     height:100%;
-    background-color: blue;
+    background-color: #dadfea;
     min-width: 190px;
 }
 .main{
@@ -17,7 +17,7 @@ html,body{
     display:flex;
 }
 .note-cont{
-    background-color: #dadfea;
+
     height:100%;
     display: flex;
     flex-direction: column;
@@ -35,20 +35,42 @@ html,body{
         flex:0 0 calc(80% - 60px);
     }
     .current-note{
+        margin-top: 50px;
         height:auto;
-        background-color:white;
         border-radius: 5px;
-        margin-top:80px;
         overflow: scroll;
         min-width: 350px;
+        background-color: #dadfea;
+        padding: 40px;
     }
 }
 
 .lists{
     height: 100%;
     margin-top: 20px;
-    justify-content: center;
-    display: flex;
-    width: 100%;
     overflow: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width:100%;
+    .list{
+        display:flex;
+        justify-content: space-between;
+        width:100%;
+    }
 }
+
+.item{
+    display: flex;
+    justify-content: space-between;
+    width: 20%;
+}
+#title{
+    font-size: 1.5em;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.item-input{
+    margin-bottom:20px;
+}
+
