@@ -77,3 +77,6 @@ html, body {
 
 #done {
   margin-right: 15px; }
+
+.important {
+  background-color: yellow; }

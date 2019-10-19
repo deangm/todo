@@ -159,6 +159,20 @@ function createItem() {
 
 }
 
+function makeImportant(element){
+    list = findSelectedList();
+    let target = $(element).parent();
+    let elements = $(".item");
+
+    for (var i = 0; i < elements.length; i++) {
+        if (elements[i] == target[0]) {
+            list.items[i].important ? list.items[i].important = false : list.items[i].important = true;
+        }
+    }
+
+    printItems();
+}
+
 function deleteItem(element) {
     let list = findSelectedList();
     let target = $(element).parent();
@@ -180,18 +194,31 @@ function printItems() {
     let list = findSelectedList();
     let html = "";
     for (var i = 0; i < list.items.length; i++) {
-        html += `<div class=item>
+       if (list.items[i].important){
+        html += `<div class="item important">
                     <div class = "itemTitle">${list.items[i].name}</div>
                     <div onclick = "updateItem(this)" style = "display:none;" class="itemDone"><i class="far fa-check-square"></i></div>
                     <div class="checkbox"><i class="fas fa-clipboard-check"></i></div>
                     <div onclick="getItemToUpdate(this)"><i class="far fa-edit"></i></div>
-                    <div><i class="fas fa-exclamation"></i></div>
+                    <div onclick="makeImportant(this)"><i class="fas fa-exclamation"></i></div>
                     <div onclick="deleteItem(this)"><i class="fas fa-trash"></i></div>
                 </div>`
 
             ;
+        }
+        else{
+            html += `<div class="item">
+                    <div class = "itemTitle">${list.items[i].name}</div>
+                    <div onclick = "updateItem(this)" style = "display:none;" class="itemDone"><i class="far fa-check-square"></i></div>
+                    <div class="checkbox"><i class="fas fa-clipboard-check"></i></div>
+                    <div onclick="getItemToUpdate(this)"><i class="far fa-edit"></i></div>
+                    <div onclick="makeImportant(this)"><i class="fas fa-exclamation"></i></div>
+                    <div onclick="deleteItem(this)"><i class="fas fa-trash"></i></div>
+                </div>`
+        }
     }
     $("#items").html(html);
+    
 }
 
 function getItemToUpdate(element) {
