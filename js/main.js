@@ -316,4 +316,6 @@ function getLists(){
         }
     }
     printLists();
+    let domLists = $(".lists").children()[0];
+    selectList($(domLists).children()[0]);
 }
