@@ -170,6 +170,8 @@ function makeImportant(element){
         }
     }
 
+    saveLists();
+
     printItems();
 }
 
