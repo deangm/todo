@@ -65,7 +65,6 @@ $("#title").on("keyup", function (event) {
 
 });
 
-
 function createList() {
     let name = $("#listName").val();
     let list = new List(name);
@@ -74,7 +73,7 @@ function createList() {
     $("#title").attr("class", name);
     printLists();
     printItems();
-    
+
     saveLists();
 }
 
@@ -124,6 +123,8 @@ function printLists() {
     }
 
     $("#lists").html(html);
+
+    
 }
 
 function selectList(element) {
@@ -159,7 +160,7 @@ function createItem() {
 
 }
 
-function makeImportant(element){
+function makeImportant(element) {
     list = findSelectedList();
     let target = $(element).parent();
     let elements = $(".item");
@@ -175,21 +176,21 @@ function makeImportant(element){
     printItems();
 }
 
-function completeItem(element){
-    list = findSelectedList();
-    let target = $(element).parent();
-    let elements = $(".item");
+// function completeItem(element) {
+//     list = findSelectedList();
+//     let target = $(element).parent();
+//     let elements = $(".item");
 
-    for (var i = 0; i < elements.length; i++) {
-        if (elements[i] == target[0]) {
-            list.items.splice(i, 1);
-        }
-    }
+//     for (var i = 0; i < elements.length; i++) {
+//         if (elements[i] == target[0]) {
+//             // list.items.splice(i, 1);
+//         }
+//     }
 
-    saveLists();
+//     saveLists();
 
-    printItems();
-}
+//     // printItems();
+// }
 
 function deleteItem(element) {
 
@@ -214,23 +215,23 @@ function printItems() {
     let list = findSelectedList();
     let html = "";
     for (var i = 0; i < list.items.length; i++) {
-       if (list.items[i].important){
-        html += `<div class="item important">
+        if (list.items[i].important) {
+            html += `<div class="item important">
                     <div class = "itemTitle">${list.items[i].name}</div>
                     <div onclick = "updateItem(this)" style = "display:none;" class="itemDone"><i class="far fa-check-square"></i></div>
-                    <div onclick= "completeItem(this)" class="checkbox"><i class="fas fa-clipboard-check"></i></div>
+                    <div class="checkbox"><i class="fas fa-clipboard-check"></i></div>
                     <div onclick="getItemToUpdate(this)"><i class="far fa-edit"></i></div>
                     <div onclick="makeImportant(this)"><i class="fas fa-exclamation"></i></div>
                     <div onclick="deleteItem(this)"><i class="fas fa-trash"></i></div>
                 </div>`
 
-            ;
+                ;
         }
-        else{
+        else {
             html += `<div class="item">
                     <div class = "itemTitle">${list.items[i].name}</div>
                     <div onclick = "updateItem(this)" style = "display:none;" class="itemDone"><i class="far fa-check-square"></i></div>
-                    <div onclick= "completeItem(this)" class="checkbox"><i class="fas fa-clipboard-check"></i></div>
+                    <div class="checkbox"><i class="fas fa-clipboard-check"></i></div>
                     <div onclick="getItemToUpdate(this)"><i class="far fa-edit"></i></div>
                     <div onclick="makeImportant(this)"><i class="fas fa-exclamation"></i></div>
                     <div onclick="deleteItem(this)"><i class="fas fa-trash"></i></div>
@@ -238,7 +239,32 @@ function printItems() {
         }
     }
     $("#items").html(html);
-    
+
+    //adds event listener for complete animation
+
+    $(".checkbox").each(function(){
+        this.addEventListener("click", function(e){
+            $(this).animate({
+              fontSize : "200px",
+              }, 1000, function() {
+               
+                list = findSelectedList();
+                let target = $(this).parent();
+                let elements = $(".item");
+            
+                for (var i = 0; i < elements.length; i++) {
+                    if (elements[i] == target[0]) {
+                         list.items.splice(i, 1);
+                    }
+                }
+            
+                saveLists();
+            
+                printItems();
+              });
+        });
+    });
+
 }
 
 function getItemToUpdate(element) {
@@ -285,29 +311,29 @@ function clearHtml(element) {
 //localStorage.setItem("lists", "thing");
 // let object = localStorage.getItem("thing");
 //let lists = JSON.parse(object); -- changes from string back to array or object etc.
- 
-function saveLists(){
+
+function saveLists() {
     let stringLists = JSON.stringify(lists);
     localStorage.setItem(LISTS_KEY, stringLists);
 }
 
-function getLists(){
+function getLists() {
     let stringLists = localStorage.getItem(LISTS_KEY);
 
     let objectLists = JSON.parse(stringLists);
 
-    if(objectLists == null){
+    if (objectLists == null) {
         return
     }
-    
-    for(i=0; i<objectLists.length; i++){
-        
+
+    for (i = 0; i < objectLists.length; i++) {
+
         let objectList = objectLists[i];
         let list = new List(objectList.name);
         lists.push(list);
-        
-        for(j = 0; j<objectLists[i].items.length; j++){
-            
+
+        for (j = 0; j < objectLists[i].items.length; j++) {
+
             let objectItem = objectList.items[j];
             let item = new Item(objectItem.name, objectItem.completed, objectItem.important);
 
@@ -316,6 +342,9 @@ function getLists(){
         }
     }
     printLists();
-    let domLists = $(".lists").children()[0];
-    selectList($(domLists).children()[0]);
+
+    if (lists.length > 0) {
+        let domLists = $(".lists").children()[0];
+        selectList($(domLists).children()[0]);
+    }
 }
