@@ -175,7 +175,25 @@ function makeImportant(element){
     printItems();
 }
 
+function completeItem(element){
+    list = findSelectedList();
+    let target = $(element).parent();
+    let elements = $(".item");
+
+    for (var i = 0; i < elements.length; i++) {
+        if (elements[i] == target[0]) {
+            list.items.splice(i, 1);
+        }
+    }
+
+    saveLists();
+
+    printItems();
+}
+
 function deleteItem(element) {
+
+    console.log(element);
     let list = findSelectedList();
     let target = $(element).parent();
     let elements = $(".item");
@@ -200,7 +218,7 @@ function printItems() {
         html += `<div class="item important">
                     <div class = "itemTitle">${list.items[i].name}</div>
                     <div onclick = "updateItem(this)" style = "display:none;" class="itemDone"><i class="far fa-check-square"></i></div>
-                    <div class="checkbox"><i class="fas fa-clipboard-check"></i></div>
+                    <div onclick= "completeItem(this)" class="checkbox"><i class="fas fa-clipboard-check"></i></div>
                     <div onclick="getItemToUpdate(this)"><i class="far fa-edit"></i></div>
                     <div onclick="makeImportant(this)"><i class="fas fa-exclamation"></i></div>
                     <div onclick="deleteItem(this)"><i class="fas fa-trash"></i></div>
@@ -212,7 +230,7 @@ function printItems() {
             html += `<div class="item">
                     <div class = "itemTitle">${list.items[i].name}</div>
                     <div onclick = "updateItem(this)" style = "display:none;" class="itemDone"><i class="far fa-check-square"></i></div>
-                    <div class="checkbox"><i class="fas fa-clipboard-check"></i></div>
+                    <div onclick= "completeItem(this)" class="checkbox"><i class="fas fa-clipboard-check"></i></div>
                     <div onclick="getItemToUpdate(this)"><i class="far fa-edit"></i></div>
                     <div onclick="makeImportant(this)"><i class="fas fa-exclamation"></i></div>
                     <div onclick="deleteItem(this)"><i class="fas fa-trash"></i></div>
