@@ -119,7 +119,7 @@ function printLists() {
     for (var i = 0; i < lists.length; i++) {
         html += `<div class = list>
                                 <div onclick="selectList(this)">${lists[i].name}</div>
-                                <div onclick="deleteList(this)">X</div>
+                                <div onclick="deleteList(this)"><i class="fas fa-trash"></i></div>
                             </div>`
     }
 
@@ -182,11 +182,11 @@ function printItems() {
     for (var i = 0; i < list.items.length; i++) {
         html += `<div class=item>
                     <div class = "itemTitle">${list.items[i].name}</div>
-                    <input type="checkbox"/>
-                    <div onclick = "updateItem(this)" style = "display:none;" class="itemDone">Done</div>
-                    <div onclick="getItemToUpdate(this)">edit</div>
-                    <div>!</div>
-                    <div onclick="deleteItem(this)">X</div>
+                    <div onclick = "updateItem(this)" style = "display:none;" class="itemDone"><i class="far fa-check-square"></i></div>
+                    <div class="checkbox"><i class="fas fa-clipboard-check"></i></div>
+                    <div onclick="getItemToUpdate(this)"><i class="far fa-edit"></i></div>
+                    <div><i class="fas fa-exclamation"></i></div>
+                    <div onclick="deleteItem(this)"><i class="fas fa-trash"></i></div>
                 </div>`
 
             ;
@@ -201,7 +201,7 @@ function getItemToUpdate(element) {
     $(currentItemTitle).attr("contenteditable", "true");
     $(currentItemTitle).html("");
     $(currentItemTitle).focus();
-    let done = $(currentItem).children()[2];
+    let done = $(currentItem).children()[1];
     $(done).show();
 }
 
@@ -221,7 +221,7 @@ function updateItem(element) {
 
         }
     };
-    let done = $(currentItem).children()[2];
+    let done = $(currentItem).children()[1];
     $(done).hide();
 
     saveLists();

@@ -2,6 +2,8 @@
 <html lang="en">
 
 <head>
+    <script src="https://kit.fontawesome.com/4da3177817.js" crossorigin="anonymous"></script>
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -37,19 +39,19 @@
         <div class="container col-10 note-cont">
             <div class="current-note col-10">
 
-                <div class = "d-flex justify-content-between align-items-center">
-                <div id="title-cont" class = "d-flex align-items-center">
-                    <h1 id="title">TITLE OF NOTE</h1>
-                    <div style = "display:flex">
-                        <div id="done" style="display:none" onclick = "updateList()">done</div>
-                        <p onclick="clearHtml();">edit</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div id="title-cont" class="d-flex align-items-center">
+                        <h1 id="title">TITLE OF NOTE</h1>
+                        <div style="display:flex">
+                            <div id="done" style="display:none" onclick="updateList()"><i class="far fa-check-square"></i></div>
+                            <p onclick="clearHtml();"><i class="far fa-edit"></i></p>
+                        </div>
+                    </div>
+
+                    <div class="item-input">
+                        <input id="itemName" placeholder="Add To Do...">
                     </div>
                 </div>
-
-                <div class="item-input">
-                    <input id="itemName" placeholder="Add To Do...">
-                </div>
-            </div>
 
 
                 <div id="items"></div>
