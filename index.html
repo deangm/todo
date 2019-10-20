@@ -4,6 +4,7 @@
 <head>
     <script src="https://kit.fontawesome.com/4da3177817.js" crossorigin="anonymous"></script>
 
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -21,7 +22,9 @@
     <title>Document</title>
     <link rel="stylesheet" href="css/styles.css">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous" defer></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+        integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous" defer></script>
     <script src="js/main.js" defer></script>
 </head>
 
@@ -43,7 +46,8 @@
                     <div id="title-cont" class="d-flex align-items-center">
                         <h1 id="title">TITLE OF NOTE</h1>
                         <div style="display:flex">
-                            <div id="done" style="display:none" onclick="updateList()"><i class="far fa-check-square"></i></div>
+                            <div id="done" style="display:none" onclick="updateList()"><i
+                                    class="far fa-check-square"></i></div>
                             <p onclick="clearHtml();"><i class="far fa-edit"></i></p>
                         </div>
                     </div>

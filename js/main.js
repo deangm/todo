@@ -124,7 +124,7 @@ function printLists() {
 
     $("#lists").html(html);
 
-    
+
 }
 
 function selectList(element) {
@@ -215,53 +215,90 @@ function printItems() {
     let list = findSelectedList();
     let html = "";
     for (var i = 0; i < list.items.length; i++) {
-        if (list.items[i].important) {
-            html += `<div class="item important">
+        html += `<div class="item">
                     <div class = "itemTitle">${list.items[i].name}</div>
                     <div onclick = "updateItem(this)" style = "display:none;" class="itemDone"><i class="far fa-check-square"></i></div>
                     <div class="checkbox"><i class="fas fa-clipboard-check"></i></div>
                     <div onclick="getItemToUpdate(this)"><i class="far fa-edit"></i></div>
                     <div onclick="makeImportant(this)"><i class="fas fa-exclamation"></i></div>
-                    <div onclick="deleteItem(this)"><i class="fas fa-trash"></i></div>
+                    <div class = "deleteItem"><i class="fas fa-trash"></i></div>
                 </div>`
-
-                ;
-        }
-        else {
-            html += `<div class="item">
-                    <div class = "itemTitle">${list.items[i].name}</div>
-                    <div onclick = "updateItem(this)" style = "display:none;" class="itemDone"><i class="far fa-check-square"></i></div>
-                    <div class="checkbox"><i class="fas fa-clipboard-check"></i></div>
-                    <div onclick="getItemToUpdate(this)"><i class="far fa-edit"></i></div>
-                    <div onclick="makeImportant(this)"><i class="fas fa-exclamation"></i></div>
-                    <div onclick="deleteItem(this)"><i class="fas fa-trash"></i></div>
-                </div>`
-        }
     }
+
     $("#items").html(html);
+
+    let items = $("#items").children();
+    
+    for (var i = 0; i < list.items.length; i++) {
+        console.log(items[i]);
+        if (list.items[i].important) {
+           
+            $(items[i]).addClass("important");
+        }
+        if (list.items[i].completed) {
+            $(items[i]).addClass("completed");
+        }
+    };
 
     //adds event listener for complete animation
 
-    $(".checkbox").each(function(){
-        this.addEventListener("click", function(e){
-            $(this).animate({
-              fontSize : "200px",
-              }, 1000, function() {
-               
+    $(".deleteItem").each(function () {
+        let target = $(this).parent();
+
+        this.addEventListener("click", function (e) {
+            $(target).animate({
+                display: 'block',
+                lineHeight: '0',
+                height: '0px',
+                overflow: 'hidden',
+                border: "none",
+                left: '200px',
+                opacity: 0
+
+            }, 500, function () {
+
                 list = findSelectedList();
-                let target = $(this).parent();
+
                 let elements = $(".item");
-            
+
                 for (var i = 0; i < elements.length; i++) {
                     if (elements[i] == target[0]) {
-                         list.items.splice(i, 1);
+                        list.items.splice(i, 1);
                     }
                 }
-            
+
                 saveLists();
-            
+
                 printItems();
-              });
+            });
+        });
+    });
+
+    $(".checkbox").each(function () {
+        let target = $(this).parent();
+
+        this.addEventListener("click", function (e) {
+            $(target).animate({
+                textDecoration: "line-through"
+
+            }, 500, function () {
+
+                list = findSelectedList();
+
+                let elements = $(".item");
+
+                for (var i = 0; i < elements.length; i++) {
+                    if (elements[i] == target[0]) {
+                        list.items[i].completed = true;
+                    }
+                }
+
+                $(target).addClass("completed");
+
+                saveLists();
+
+                printItems();
+            });
         });
     });
 

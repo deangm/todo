@@ -59,7 +59,8 @@ html, body {
   align-items: center;
   width: 50%;
   border: 1px solid black;
-  padding: 5px; }
+  padding: 5px;
+  position: relative; }
   .item div {
     margin-left: 15px; }
 
@@ -80,3 +81,6 @@ html, body {
 
 .important {
   background-color: yellow; }
+
+.completed {
+  text-decoration: line-through; }
