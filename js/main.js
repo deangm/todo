@@ -66,7 +66,21 @@ $("#title").on("keyup", function (event) {
 });
 
 function createList() {
+
     let name = $("#listName").val();
+    let done = false;
+
+    $(lists).each(function(){
+        if(this.name == name){
+            alert("This list already exists, please use a different name");
+            done = true;
+        }
+    });
+
+    if (done == true){
+        return;
+    }
+   
     let list = new List(name);
     lists.push(list);
     $("#title").html(name);
@@ -152,6 +166,20 @@ function createItem() {
 
     let list = findSelectedList();
     let itemName = $("#itemName").val();
+    let done = false;
+
+    $(list.items).each(function(){
+        if(this.name == itemName){
+            alert("This item already exists, please use a different name");
+            done = true;
+        }
+    });
+
+    if (done == true){
+        return;
+    }
+
+
     let item = new Item(itemName, false, false);
     item.addToList(list);
     printItems();
@@ -194,7 +222,7 @@ function makeImportant(element) {
 
 function deleteItem(element) {
 
-    console.log(element);
+    
     let list = findSelectedList();
     let target = $(element).parent();
     let elements = $(".item");
@@ -230,7 +258,7 @@ function printItems() {
     let items = $("#items").children();
     
     for (var i = 0; i < list.items.length; i++) {
-        console.log(items[i]);
+        
         if (list.items[i].important) {
            
             $(items[i]).addClass("important");
@@ -241,6 +269,15 @@ function printItems() {
     };
 
     //adds event listener for complete animation
+
+    $(".itemTitle").each(function(){
+        this.addEventListener("keyup", function(e){
+            
+            if(e.which == 13){
+                updateItem(this);
+            }
+        });
+    });
 
     $(".deleteItem").each(function () {
         let target = $(this).parent();
@@ -280,7 +317,7 @@ function printItems() {
         this.addEventListener("click", function (e) {
             $(target).animate({
                 textDecoration: "line-through"
-
+                
             }, 500, function () {
 
                 list = findSelectedList();
@@ -322,19 +359,26 @@ function updateItem(element) {
     let items = $(".item");
     let listItem = '';
     let currentItemTitle = $(currentItem).children()[0];
-    let newName = $(currentItemTitle).html();
+    let newName = $(currentItemTitle).html().split("<")[0];
 
     for (let i = 0; i < items.length; i++) {
         if (currentItem[0] == items[i]) {
-            console.log(list.items[i].name);
+
             list.items[i].name = newName;
 
         }
     };
     let done = $(currentItem).children()[1];
     $(done).hide();
+    printItems();
 
     saveLists();
+}
+
+function clearCompleted(){
+    list = findSelectedList();
+    list.items = list.items.filter(item => item.completed == false);
+    printItems();
 }
 
 function clearHtml(element) {

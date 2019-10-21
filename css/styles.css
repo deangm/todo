@@ -84,3 +84,6 @@ html, body {
 
 .completed {
   text-decoration: line-through; }
+
+#clearCompleted {
+  position: absolute; }
