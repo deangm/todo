@@ -9,8 +9,9 @@ html,body{
 }
 .side-nav{
     height:100%;
-    background-color: #dadfea;
+    background-color: #0097A7;
     min-width: 190px;
+    color:white;
 }
 .main{
     height:100%;
@@ -38,8 +39,9 @@ html,body{
         border-radius: 5px;
         overflow: scroll;
         min-width: 350px;
-        background-color: #dadfea;
-        padding: 40px;
+        background-color: #00BCD4;
+        padding:0;
+    
     }
 }
 
@@ -51,14 +53,28 @@ html,body{
     flex-direction: column;
     align-items: center;
     width:100%;
+    
     .list{
         display:flex;
         justify-content: space-between;
         width:100%;
+        position:relative;
+        div{
+            cursor: pointer;
+        }
+
     }
+}
+
+.background{
+    background-color:#0097A7;
+    color:white;
+    padding: 20px 50px;
+    box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.75);
 }
 #items{
     margin-top: 50px;
+   
 }
 .item{
     margin: auto;
@@ -69,15 +85,26 @@ html,body{
     border: 1px solid black;
     padding: 5px;
     position:relative;
+    background-color: #B2EBF2;
+    box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.75);
     div{
         margin-left: 15px;
     }
+  
+}
+i{
+    cursor: pointer;
 }
 #title{
     font-size: 1.5em;
     text-align: center;
     margin-bottom: 20px;
     margin-right: 15px;
+    cursor: pointer;
+}
+
+.itemTitle{
+    cursor: pointer;
 }
 .item-input{
     margin: 0 20px;
@@ -94,8 +121,24 @@ html,body{
     background-color:yellow;
 }
 .completed{
-    text-decoration: line-through;
+    &:before{
+        content: "✓";
+        color:green;
+    }
 }
 #clearCompleted{
     position:absolute;
+}
+button{
+    cursor: pointer;
+    border-radius: 100px;
+    color: white;
+    background-color:#03A9F4;
+    padding:10px;
+    margin: 20px 0 20px 20px;
+}
+input{
+    border-radius: 5px;
+    padding: 5px;
+   
 }
